@@ -1,19 +1,26 @@
 using UnityEngine;
 
-public class note : MonoBehaviour
+public class Note : MonoBehaviour
 {
-  int type, lane;
-  float time, hold_duration;
+    int type, lane;
+    float time, hold_duration;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Note(int type, int lane, float time, float hold_duration)
     {
-        
+        this.type = type;
+        this.lane = lane;
+        this.time = time;
+        this.hold_duration = hold_duration;
     }
 
-    // Update is called once per frame
+
+    void Start()
+    {
+
+    }
+
     void Update()
     {
-        
+
     }
 }
