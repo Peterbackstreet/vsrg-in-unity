@@ -1,0 +1,20 @@
+#TITLE Aether Crest: Celestial 
+#ARTIST void (Mournfinale) × 水野健治
+#BPM 180
+#FILE Aether Crest.mp3
+#OFFSET 3000 
+
+--META DATA--
+<TYPE>:<LANE>:<TIME(ms)>:<HOLD_DURATION>
+0:1:1000:0
+0:3:2000:0
+0:2:3000:0
+0:4:4000:0
+0:1:5000:0
+0:3:6000:0
+0:2:7000:0
+0:4:8000:0
+0:1:9000:0
+0:3:10000:0
+0:2:11000:0
+0:4:12000:0
