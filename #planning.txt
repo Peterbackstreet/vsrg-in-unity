@@ -1,0 +1,46 @@
+1.make lane {
+  -create objects for the lane
+  -make the judgement line 
+}
+
+2.note {
+  -make note template(prefabs)
+    -attribtue {
+      -type
+      -lane
+      -time 
+      -hold duration
+    }
+    -sprite 
+    -movement
+}
+
+3.audio {
+  -load audio
+  -play pause stop
+  -get time
+}
+
+4.file {
+  -design chart file
+  -read chart file
+}
+
+5.chart data {
+  -all the data from chart file
+  -get metadata into an array for note spawner
+}
+
+6.note spawner {
+  -get note to spawn by meta data
+  -calculate the distance
+  -calculate the speed relative to note speed 
+}
+
+7.judgement {
+  -hit detection
+  -calculate abs(noteTime-gameTime) for timing window
+  -combo
+}
+
+--more to come, maybe--
