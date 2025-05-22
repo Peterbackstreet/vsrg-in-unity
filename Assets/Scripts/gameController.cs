@@ -12,7 +12,7 @@ public class gameController : MonoBehaviour
 {
     private string title, artist;
     private string path = "Assets/Chart files/";
-    private float BPM, offset;
+    private float BPM, offset = 0;
     [SerializeField] private GameObject notePrefab;
     private List<Note> Notes = new List<Note>();
     void Start()
@@ -41,11 +41,14 @@ public class gameController : MonoBehaviour
         GameObject newNoteObj = Instantiate(notePrefab);
         Note newNote = newNoteObj.GetComponent<Note>();
         string[] split = line.Split(':');
+        int type, lane;
+        float time, hold_duration;
 
-        newNote.type = int.Parse(split[0]);
-        newNote.lane = int.Parse(split[1]);
-        newNote.time = float.Parse(split[2]);
-        newNote.hold_duration = float.Parse(split[3]);
+        type = int.Parse(split[0]);
+        lane = int.Parse(split[1]);
+        time = float.Parse(split[2]);
+        hold_duration = float.Parse(split[3]);
+        newNote.instantiateNote(type, lane, time, hold_duration, offset);
 
         Notes.Add(newNote);
     }
@@ -57,6 +60,5 @@ public class gameController : MonoBehaviour
             note.displayNote();
         }
     }
-
 
 }
