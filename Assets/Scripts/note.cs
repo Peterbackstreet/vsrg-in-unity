@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    int type, lane;
-    float time, hold_duration;
+    public int type, lane;
+    public float time, hold_duration;
 
     public Note(int type, int lane, float time, float hold_duration)
     {
@@ -13,14 +13,9 @@ public class Note : MonoBehaviour
         this.hold_duration = hold_duration;
     }
 
-
-    void Start()
+    public void displayNote()
     {
-
+        Debug.Log("type: " + type + " lane: " + lane + " time: " + time + " hold: " + hold_duration + "");
     }
 
-    void Update()
-    {
-
-    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -12,13 +13,14 @@ public class gameController : MonoBehaviour
     private string title, artist;
     private string path = "Assets/Chart files/";
     private float BPM, offset;
+    [SerializeField] private GameObject notePrefab;
     private List<Note> Notes = new List<Note>();
     void Start()
     {
-        readChartFile(path + "Aether Crest/data.txt");
+        ReadChartFile(path + "Aether Crest/data.txt");
     }
 
-    void readChartFile(string file)
+    void ReadChartFile(string file)
     {
         string[] lines = File.ReadAllLines(file);
 
@@ -29,24 +31,32 @@ public class gameController : MonoBehaviour
             else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(4));
             else if (line.StartsWith("#FILE")) path = line.Substring(5);
             else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(7));
-            else if (line.StartsWith("#")) insertNote(line.Substring(1));
+            else if (line.StartsWith("#")) InsertNote(line.Substring(1));
+        }
+        DebugNote();
+    }
 
+    void InsertNote(string line)
+    {
+        GameObject newNoteObj = Instantiate(notePrefab);
+        Note newNote = newNoteObj.GetComponent<Note>();
+        string[] split = line.Split(':');
+
+        newNote.type = int.Parse(split[0]);
+        newNote.lane = int.Parse(split[1]);
+        newNote.time = float.Parse(split[2]);
+        newNote.hold_duration = float.Parse(split[3]);
+
+        Notes.Add(newNote);
+    }
+
+    void DebugNote()
+    {
+        foreach (Note note in Notes)
+        {
+            note.displayNote();
         }
     }
 
-    void insertNote(string line)
-    {
-        int type, lane;
-        float time, hold_duration;
-
-        string[] split = line.Split();
-
-        type = int.Parse(split[0]);
-        lane = int.Parse(split[1]);
-        time = int.Parse(split[2]);
-        hold_duration = int.Parse(split[3]);
-
-        Notes.Add(new Note(type, lane, time, hold_duration));
-    }
 
 }
