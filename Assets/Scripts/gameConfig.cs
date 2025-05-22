@@ -1,9 +1,6 @@
 using UnityEngine;
 
-public class gameConfig : MonoBehaviour
+public class gameConfig
 {
-    public float scrollSpeed = 2f;
-    void Start()
-    {
-    }
+    public float scrollSpeed = 10f;
 }

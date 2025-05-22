@@ -14,6 +14,7 @@ public class gameController : MonoBehaviour
     private string path = "Assets/Chart files/";
     private float BPM, offset = 0;
     [SerializeField] private GameObject notePrefab;
+    [SerializeField] private AudioSource audioSource;
     private List<Note> Notes = new List<Note>();
     void Start()
     {
@@ -49,6 +50,7 @@ public class gameController : MonoBehaviour
         time = float.Parse(split[2]);
         hold_duration = float.Parse(split[3]);
         newNote.instantiateNote(type, lane, time, hold_duration, offset);
+        newNote.audioSource = audioSource;
 
         Notes.Add(newNote);
     }

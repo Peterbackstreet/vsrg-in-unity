@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notePrefab: {fileID: 7665240658762039421, guid: 7cc0da20d756f4849ad8b2b0fc10774e, type: 3}
+  audioSource: {fileID: 540846135}
 --- !u!4 &116743751
 Transform:
   m_ObjectHideFlags: 0

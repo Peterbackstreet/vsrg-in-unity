@@ -10,9 +10,14 @@ public class audioController : MonoBehaviour
     [SerializeField] private TMP_Text chartTimeText;
     [SerializeField] private Slider timeSlider;
 
-    private float chartLength, chartTime;
+    public float chartLength, chartTime;
     private string chartLengthText;
 
+    public static audioController Instance;
+    void Awake()
+    {
+        Instance = this;
+    }
     
     bool pause = true;
     void Start()
