@@ -26,7 +26,11 @@ public class Note : MonoBehaviour
     void Update()
     {
         float lanePos = lane - 2.5f;
-        float distance = (offset + time - audioSource.time*1000) * config.scrollSpeed * 0.001f ;
+        float timeDiff = time - audioSource.time * 1000;
+
+        if (timeDiff < -50) Destroy(gameObject);
+
+        float distance = (offset + timeDiff) * config.scrollSpeed * 0.001f ; 
         transform.position = new Vector3(lanePos, 0, distance);
     }
 

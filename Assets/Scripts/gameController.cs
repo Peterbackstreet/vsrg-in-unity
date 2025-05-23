@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,7 @@ using UnityEngine.Tilemaps;
 
 public class gameController : MonoBehaviour
 {
+    public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
     private string path = "Assets/Chart files/";
     private float BPM, offset = 0;
@@ -34,7 +36,6 @@ public class gameController : MonoBehaviour
             else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(7));
             else if (line.StartsWith("#")) InsertNote(line.Substring(1));
         }
-        DebugNote();
     }
 
     void InsertNote(string line)
@@ -55,12 +56,20 @@ public class gameController : MonoBehaviour
         Notes.Add(newNote);
     }
 
-    void DebugNote()
+    public void addCombo()
     {
-        foreach (Note note in Notes)
-        {
-            note.displayNote();
-        }
+        combo++;
+        maxCombo = math.max(combo, maxCombo);
+    }
+
+    public void resetCombo()
+    {
+        combo = 0;
+    }
+
+    public void addScore(int score)
+    {
+        this.score += score;
     }
 
 }

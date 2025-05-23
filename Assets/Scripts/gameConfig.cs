@@ -3,4 +3,13 @@ using UnityEngine;
 public class gameConfig
 {
     public float scrollSpeed = 10f;
+    public float perfectWindow = 20f;
+    public float greatWindow = 50f;
+    public float goodWindow = 100f;
+    public float missWindow = 150f;
+    public int perfectScore = 100;
+    public int greatScore = 50;
+    public int goodScore = 20;
+
+
 }

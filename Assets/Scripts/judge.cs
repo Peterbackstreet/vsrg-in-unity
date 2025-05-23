@@ -9,22 +9,31 @@ public class judge : MonoBehaviour
     [SerializeField] KeyCode key;
     [SerializeField] gameController gameController;
     [SerializeField] AudioSource audioSource;
+    private gameConfig config = new gameConfig();
     void Start()
     {
         transform.GetComponent<MeshRenderer>().material = default_material;
     }
 
-    void checkForNote() {
+    void checkForNote()
+    {
         foreach (Note note in gameController.Notes)
         {
             if (note.lane == lane)
             {
-                float timeDiff = math.abs(note.time - audioSource.time*1000);
-                if (timeDiff < 50)
+                float timeDiff = math.abs(note.time - audioSource.time * 1000);
+                if (timeDiff <= config.missWindow)
                 {
+                    if (timeDiff > config.goodWindow) gameController.resetCombo();
+                    else
+                    {
+                        if (timeDiff <= config.perfectWindow) gameController.addScore(config.perfectScore);
+                        else if (timeDiff <= config.greatWindow) gameController.addScore(config.greatScore);
+                        else gameController.addScore(config.goodScore);
+                        gameController.addCombo();
+                    }
                     gameController.Notes.Remove(note);
                     Destroy(note.gameObject);
-                    Debug.Log("W");
                     return;
                 }
             }
