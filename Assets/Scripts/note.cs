@@ -21,6 +21,19 @@ public class Note : MonoBehaviour
         this.time = time;
         this.hold_duration = hold_duration;
         this.offset = offset;
+        if(this.type == 1) ajdustLN();
+    }
+
+    private void ajdustLN()
+    {
+        float tailPos = hold_duration * config.scrollSpeed * 0.001f;
+        float bodyPos = tailPos / 2;
+        float bodyScale = hold_duration * config.scrollSpeed * 0.001f;
+        gameObject.transform.Find("tail").localPosition = new Vector3(0, 0, tailPos);
+        gameObject.transform.Find("body").localPosition = new Vector3(0, 0, bodyPos);
+
+        Transform body = gameObject.transform.Find("body");
+        body.localScale = new Vector3(body.localScale.x, body.localScale.y, bodyScale - body.localScale.z);
     }
 
     void Update()
