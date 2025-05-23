@@ -4,8 +4,9 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     public int type, lane;
-    public float time, hold_duration, offset;
-    public bool judged = false;
+    public float time, hold_duration, offset; //hold_duration(beat as unit)
+    public bool isJudged = false;
+    private float tickTime, currTime;
     private gameConfig config = new gameConfig();
     void Start()
     {
@@ -19,9 +20,10 @@ public class Note : MonoBehaviour
         this.type = type;
         this.lane = lane;
         this.time = beat * gameController.Instance.BPM / 60;
-        this.hold_duration = hold_duration;
+        this.hold_duration = hold_duration * gameController.Instance.BPM / 60;
         this.offset = offset;
-        if(this.type == 1) ajdustLN();
+        this.tickTime = this.time + gameController.Instance.BPM / 240;
+        if (this.type == 1) ajdustLN();
     }
 
     private void ajdustLN()
@@ -36,11 +38,26 @@ public class Note : MonoBehaviour
         body.localScale = new Vector3(body.localScale.x, body.localScale.y, bodyScale - body.localScale.z);
     }
 
+    void onHoldTick()
+    {
+        float timeDiff =  currTime - tickTime;
+        float timeInterval = gameController.Instance.BPM / 240; // 1/4 time sig
+        float tailReleaseTime = time + hold_duration;
+        if (timeDiff >= timeInterval && currTime < tailReleaseTime)
+        {
+            tickTime = currTime;
+            gameController.Instance.addCombo();
+        }
+    }
+
     void Update()
     {
-        float timeDiff = time - audioController.Instance.audioSource.time;
+        currTime = audioController.Instance.audioSource.time;
+        float timeDiff = time - currTime;
 
-        if (!judged && timeDiff < -config.missWindow)
+        if (isJudged && type == 1) onHoldTick();
+
+        if (!isJudged && timeDiff < -config.missWindow)
         {
             gameController.Instance.resetCombo();
             gameController.Instance.Notes.Remove(gameObject.GetComponent<Note>());

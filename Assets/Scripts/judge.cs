@@ -9,6 +9,7 @@ public class judge : MonoBehaviour
     [SerializeField] Material hit_material, default_material;
     [SerializeField] KeyCode key;
     private gameConfig config = new gameConfig();
+    private float currTime;
     void Start()
     {
         transform.GetComponent<MeshRenderer>().material = default_material;
@@ -18,12 +19,12 @@ public class judge : MonoBehaviour
     {
         foreach (Note note in gameController.Instance.Notes)
         {
-            if (!note.judged && note.lane == lane)
+            if (!note.isJudged && note.lane == lane)
             {
-                float timeDiff = math.abs(note.time - audioController.Instance.audioSource.time);
+                float timeDiff = math.abs(note.time - currTime);
                 if (timeDiff <= config.missWindow)
                 {
-                    note.judged = true;
+                    note.isJudged = true;
                     if (timeDiff > config.goodWindow) gameController.Instance.resetCombo();
                     else
                     {
@@ -48,10 +49,10 @@ public class judge : MonoBehaviour
     {
         foreach (Note note in gameController.Instance.Notes)
         {
-            if (note.type == 1 && note.judged)
+            if (note.lane == lane && note.isJudged && note.lane == lane)
             {
                 float releaseTime = note.time + note.hold_duration;
-                float timeDiff = math.abs(releaseTime - audioController.Instance.audioSource.time);
+                float timeDiff = math.abs(releaseTime - currTime);
 
                 if (timeDiff <= config.goodWindow)
                 {
@@ -69,6 +70,7 @@ public class judge : MonoBehaviour
 
     void Update()
     {
+        currTime = audioController.Instance.audioSource.time;
         if (Input.GetKey(key)) transform.GetComponent<MeshRenderer>().material = hit_material;
         else transform.GetComponent<MeshRenderer>().material = default_material;
 
