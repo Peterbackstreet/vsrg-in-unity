@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Numerics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -15,7 +16,7 @@ public class gameController : MonoBehaviour
     private string title, artist;
     private string path = "Assets/Chart files/";
     private float BPM, offset = 0;
-    [SerializeField] private GameObject notePrefab;
+    [SerializeField] private GameObject notePrefab, longNotePrefab;
     [SerializeField] private AudioSource audioSource;
     public List<Note> Notes = new List<Note>();
     void Start()
@@ -40,8 +41,6 @@ public class gameController : MonoBehaviour
 
     void InsertNote(string line)
     {
-        GameObject newNoteObj = Instantiate(notePrefab);
-        Note newNote = newNoteObj.GetComponent<Note>();
         string[] split = line.Split(':');
         int type, lane;
         float time, hold_duration;
@@ -50,10 +49,19 @@ public class gameController : MonoBehaviour
         lane = int.Parse(split[1]);
         time = float.Parse(split[2]);
         hold_duration = float.Parse(split[3]);
-        newNote.instantiateNote(type, lane, time, hold_duration, offset);
-        newNote.audioSource = audioSource;
 
-        Notes.Add(newNote);
+        if (type == 0) addNote(type, lane, time, hold_duration, notePrefab);
+        else addNote(type, lane, time, hold_duration, longNotePrefab);
+
+    }
+
+    void addNote(int type, int lane, float time, float hold_duration, GameObject prefab)
+    {
+            GameObject newNoteObj = Instantiate(prefab);
+            Note newNote = newNoteObj.GetComponent<Note>();
+            newNote.instantiateNote(type, lane, time, hold_duration, offset);
+            newNote.audioSource = audioSource;
+            Notes.Add(newNote);
     }
 
     public void addCombo()

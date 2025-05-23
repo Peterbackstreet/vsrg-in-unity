@@ -275,7 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0000610888447af4c991feb95999e6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  combo: 0
+  maxCombo: 0
   notePrefab: {fileID: 7665240658762039421, guid: 7cc0da20d756f4849ad8b2b0fc10774e, type: 3}
+  longNotePrefab: {fileID: 3706927787385416397, guid: 229c50d6ee410694382e1980a896fe99, type: 3}
   audioSource: {fileID: 540846135}
   Notes: []
 --- !u!4 &116743751
