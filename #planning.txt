@@ -39,8 +39,10 @@
 
 7.judgement {
   -hit detection
-  -calculate abs(noteTime-gameTime) for timing window <-- right here now
+  -calculate abs(noteTime-gameTime) for timing window 
   -combo
+  -score
+  -timing window <-- right here now
 }
 
 8.long notes {
