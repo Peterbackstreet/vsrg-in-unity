@@ -10,15 +10,15 @@ public class Note : MonoBehaviour
     void Start()
     {
         float lanePos = (lane - 1) - 1.5f;
-        float distance = (offset + time) * config.scrollSpeed * 0.001f;
+        float distance = (offset + time) * config.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
-    public void instantiateNote(int type, int lane, float time, float hold_duration, float offset)
+    public void instantiateNote(int type, int lane, float beat, float hold_duration, float offset)
     {
         this.type = type;
         this.lane = lane;
-        this.time = time;
+        this.time = beat * gameController.Instance.BPM / 60;
         this.hold_duration = hold_duration;
         this.offset = offset;
         if(this.type == 1) ajdustLN();
@@ -26,9 +26,9 @@ public class Note : MonoBehaviour
 
     private void ajdustLN()
     {
-        float tailPos = hold_duration * config.scrollSpeed * 0.001f;
+        float tailPos = hold_duration * config.scrollSpeed;
         float bodyPos = tailPos / 2;
-        float bodyScale = hold_duration * config.scrollSpeed * 0.001f;
+        float bodyScale = hold_duration * config.scrollSpeed;
         gameObject.transform.Find("tail").localPosition = new Vector3(0, 0, tailPos);
         gameObject.transform.Find("body").localPosition = new Vector3(0, 0, bodyPos);
 
@@ -38,9 +38,9 @@ public class Note : MonoBehaviour
 
     void Update()
     {
-        float timeDiff = time - audioController.Instance.audioSource.time * 1000;
+        float timeDiff = time - audioController.Instance.audioSource.time;
 
-        if (!judged && timeDiff < -50)
+        if (!judged && timeDiff < -config.missWindow)
         {
             gameController.Instance.resetCombo();
             gameController.Instance.Notes.Remove(gameObject.GetComponent<Note>());
@@ -48,7 +48,7 @@ public class Note : MonoBehaviour
         }
 
         float lanePos = lane - 2.5f;
-        float distance = (offset + timeDiff) * config.scrollSpeed * 0.001f ; 
+        float distance = (offset + timeDiff) * config.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 

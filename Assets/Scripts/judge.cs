@@ -20,7 +20,7 @@ public class judge : MonoBehaviour
         {
             if (!note.judged && note.lane == lane)
             {
-                float timeDiff = math.abs(note.time - audioController.Instance.audioSource.time * 1000);
+                float timeDiff = math.abs(note.time - audioController.Instance.audioSource.time);
                 if (timeDiff <= config.missWindow)
                 {
                     note.judged = true;
@@ -51,7 +51,7 @@ public class judge : MonoBehaviour
             if (note.type == 1 && note.judged)
             {
                 float releaseTime = note.time + note.hold_duration;
-                float timeDiff = math.abs(releaseTime - audioController.Instance.audioSource.time * 1000);
+                float timeDiff = math.abs(releaseTime - audioController.Instance.audioSource.time);
 
                 if (timeDiff <= config.goodWindow)
                 {

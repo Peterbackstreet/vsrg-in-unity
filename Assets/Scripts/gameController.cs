@@ -28,7 +28,7 @@ public class gameController : MonoBehaviour
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
     private string path = "Assets/Chart files/";
-    private float BPM, offset = 0;
+    public float BPM, offset = 0;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
     public List<Note> Notes = new List<Note>();
     void Start()
@@ -55,15 +55,15 @@ public class gameController : MonoBehaviour
     {
         string[] split = line.Split(':');
         int type, lane;
-        float time, hold_duration;
+        float beat, hold_duration;
 
         type = int.Parse(split[0]);
         lane = int.Parse(split[1]);
-        time = float.Parse(split[2]);
+        beat = float.Parse(split[2]);
         hold_duration = float.Parse(split[3]);
 
-        if (type == 0) addNote(type, lane, time, hold_duration, notePrefab);
-        else addNote(type, lane, time, hold_duration, longNotePrefab);
+        if (type == 0) addNote(type, lane, beat, hold_duration, notePrefab);
+        else addNote(type, lane, beat, hold_duration, longNotePrefab);
 
     }
 
