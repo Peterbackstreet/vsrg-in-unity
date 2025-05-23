@@ -7,8 +7,6 @@ public class judge : MonoBehaviour
     [SerializeField] int lane;
     [SerializeField] Material hit_material, default_material;
     [SerializeField] KeyCode key;
-    [SerializeField] gameController gameController;
-    [SerializeField] AudioSource audioSource;
     private gameConfig config = new gameConfig();
     void Start()
     {
@@ -17,27 +15,37 @@ public class judge : MonoBehaviour
 
     void checkForNote()
     {
-        foreach (Note note in gameController.Notes)
+        foreach (Note note in gameController.Instance.Notes)
         {
             if (note.lane == lane)
             {
-                float timeDiff = math.abs(note.time - audioSource.time * 1000);
+                float timeDiff = math.abs(note.time - audioController.Instance.audioSource.time * 1000);
                 if (timeDiff <= config.missWindow)
                 {
-                    if (timeDiff > config.goodWindow) gameController.resetCombo();
+                    note.judged = true;
+                    if (timeDiff > config.goodWindow) gameController.Instance.resetCombo();
                     else
                     {
-                        if (timeDiff <= config.perfectWindow) gameController.addScore(config.perfectScore);
-                        else if (timeDiff <= config.greatWindow) gameController.addScore(config.greatScore);
-                        else gameController.addScore(config.goodScore);
-                        gameController.addCombo();
+                        if (timeDiff <= config.perfectWindow) gameController.Instance.addScore(config.perfectScore);
+                        else if (timeDiff <= config.greatWindow) gameController.Instance.addScore(config.greatScore);
+                        else gameController.Instance.addScore(config.goodScore);
+                        gameController.Instance.addCombo();
                     }
-                    gameController.Notes.Remove(note);
-                    Destroy(note.gameObject);
+
+                    if (note.type == 0)
+                    {
+                        gameController.Instance.Notes.Remove(note);
+                        Destroy(note.gameObject);
+                    }
                     return;
                 }
             }
         }
+    }
+
+    void checkRelease()
+    {
+        
     }
 
     void Update()

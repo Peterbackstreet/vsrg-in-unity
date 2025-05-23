@@ -6,18 +6,25 @@ using UnityEngine.UI;
 
 public class audioController : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
+    public static audioController Instance { get; private set; }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
+    [SerializeField] public AudioSource audioSource;
     [SerializeField] private TMP_Text chartTimeText;
     [SerializeField] private Slider timeSlider;
 
     public float chartLength, chartTime;
     private string chartLengthText;
-
-    public static audioController Instance;
-    void Awake()
-    {
-        Instance = this;
-    }
     
     bool pause = true;
     void Start()

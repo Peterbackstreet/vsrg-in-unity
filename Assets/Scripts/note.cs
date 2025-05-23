@@ -5,7 +5,7 @@ public class Note : MonoBehaviour
 {
     public int type, lane;
     public float time, hold_duration, offset;
-    public AudioSource audioSource; 
+    public bool judged = false;
     private gameConfig config = new gameConfig();
     void Start()
     {
@@ -38,11 +38,16 @@ public class Note : MonoBehaviour
 
     void Update()
     {
+        float timeDiff = time - audioController.Instance.audioSource.time * 1000;
+
+        if (!judged && timeDiff < -50)
+        {
+            gameController.Instance.resetCombo();
+            gameController.Instance.Notes.Remove(gameObject.GetComponent<Note>());
+            Destroy(gameObject);
+        }
+
         float lanePos = lane - 2.5f;
-        float timeDiff = time - audioSource.time * 1000;
-
-        if (timeDiff < -50) Destroy(gameObject);
-
         float distance = (offset + timeDiff) * config.scrollSpeed * 0.001f ; 
         transform.position = new Vector3(lanePos, 0, distance);
     }

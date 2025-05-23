@@ -12,12 +12,24 @@ using UnityEngine.Tilemaps;
 
 public class gameController : MonoBehaviour
 {
+    public static gameController Instance { get; private set; }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
     private string path = "Assets/Chart files/";
     private float BPM, offset = 0;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
-    [SerializeField] private AudioSource audioSource;
     public List<Note> Notes = new List<Note>();
     void Start()
     {
@@ -60,7 +72,6 @@ public class gameController : MonoBehaviour
             GameObject newNoteObj = Instantiate(prefab);
             Note newNote = newNoteObj.GetComponent<Note>();
             newNote.instantiateNote(type, lane, time, hold_duration, offset);
-            newNote.audioSource = audioSource;
             Notes.Add(newNote);
     }
 

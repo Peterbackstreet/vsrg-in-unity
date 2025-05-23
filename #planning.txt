@@ -42,14 +42,17 @@
   -calculate abs(noteTime-gameTime) for timing window 
   -combo
   -score
-  -timing window <-- right here now
+  -timing window 
 }
 
 8.long notes {
   -make some sort of prefab for long note
-  -load long note and instantiate with the right length
+  -load long note and instantiate with the right length <-- right here now
   -make the judgement work
-  -add a release timing (maybe may be not idk)
+    -tap head
+    -hold body
+      -hold tick
+    -release tail
 }
 
 <=== CHART EDITOR ===>
