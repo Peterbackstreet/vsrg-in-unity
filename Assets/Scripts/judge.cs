@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class judge : MonoBehaviour
     {
         foreach (Note note in gameController.Instance.Notes)
         {
-            if (note.lane == lane)
+            if (!note.judged && note.lane == lane)
             {
                 float timeDiff = math.abs(note.time - audioController.Instance.audioSource.time * 1000);
                 if (timeDiff <= config.missWindow)
@@ -45,7 +46,25 @@ public class judge : MonoBehaviour
 
     void checkRelease()
     {
-        
+        foreach (Note note in gameController.Instance.Notes)
+        {
+            if (note.type == 1 && note.judged)
+            {
+                float releaseTime = note.time + note.hold_duration;
+                float timeDiff = math.abs(releaseTime - audioController.Instance.audioSource.time * 1000);
+
+                if (timeDiff <= config.goodWindow)
+                {
+                    gameController.Instance.addCombo();
+                    gameController.Instance.addScore(config.perfectScore);
+                }
+                else gameController.Instance.resetCombo();
+
+                gameController.Instance.Notes.Remove(note);
+                Destroy(note.gameObject);
+                return;
+            }
+        }
     }
 
     void Update()
@@ -54,5 +73,7 @@ public class judge : MonoBehaviour
         else transform.GetComponent<MeshRenderer>().material = default_material;
 
         if (Input.GetKeyDown(key)) checkForNote();
+        if (Input.GetKeyUp(key)) checkRelease();
+
     }
 }
