@@ -39,8 +39,44 @@
 
 7.judgement {
   -hit detection
-  -calculate abs(noteTime-gameTime) for timing window
+  -calculate abs(noteTime-gameTime) for timing window <-- right here now
   -combo
 }
+
+8.long notes {
+  -make some sort of prefab for long note
+  -load long note and instantiate with the right length
+  -make the judgement work
+  -add a release timing (maybe may be not idk)
+}
+
+<=== CHART EDITOR ===>
+  -timeline/grid UI
+  -setting BPM
+  -play pause music
+    -also get the time ofc
+  -slider for moving through part of song
+    -also move the UI
+  -note placement -> List for holding notes
+    -mouse click on position translate to time and lane
+    -snab to grid
+    -instantiate a note prefab
+  -saving
+    -convert the List<Note> into a chart data file format
+  -loading 
+    -might be similar to regular to reading chart data idk.
+  -hold note
+
+  -extra
+    -change grid count (base of time signature)
+    -move, select, remove note
+    -undo redo 
+    -preview on play
+    -scroll through timeline
+<===              ===>
+
+optional!!
+  -softlan!!!!!!!
+
 
 --more to come, maybe--
