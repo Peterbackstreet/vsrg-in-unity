@@ -128,10 +128,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 75516221}
+  - component: {fileID: 75516222}
   - component: {fileID: 75516225}
   - component: {fileID: 75516224}
   - component: {fileID: 75516223}
-  - component: {fileID: 75516222}
   m_Layer: 0
   m_Name: 4
   m_TagString: Untagged
@@ -166,9 +166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d82e54406ee05418b5578cb8be2302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lane: 4
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 107
+  gameController: {fileID: 116743750}
+  audioSource: {fileID: 540846135}
 --- !u!65 &75516223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -274,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notePrefab: {fileID: 7665240658762039421, guid: 7cc0da20d756f4849ad8b2b0fc10774e, type: 3}
   audioSource: {fileID: 540846135}
+  Notes: []
 --- !u!4 &116743751
 Transform:
   m_ObjectHideFlags: 0
@@ -853,10 +857,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 413612766}
+  - component: {fileID: 413612767}
   - component: {fileID: 413612765}
   - component: {fileID: 413612764}
   - component: {fileID: 413612763}
-  - component: {fileID: 413612767}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -965,9 +969,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d82e54406ee05418b5578cb8be2302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lane: 1
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 100
+  gameController: {fileID: 116743750}
+  audioSource: {fileID: 540846135}
 --- !u!1 &540846133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,10 +1131,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 763021817}
+  - component: {fileID: 763021818}
   - component: {fileID: 763021821}
   - component: {fileID: 763021820}
   - component: {fileID: 763021819}
-  - component: {fileID: 763021818}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -1162,9 +1169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d82e54406ee05418b5578cb8be2302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lane: 3
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 106
+  gameController: {fileID: 116743750}
+  audioSource: {fileID: 540846135}
 --- !u!65 &763021819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1632,10 +1642,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1152232012}
+  - component: {fileID: 1152232013}
   - component: {fileID: 1152232016}
   - component: {fileID: 1152232015}
   - component: {fileID: 1152232014}
-  - component: {fileID: 1152232013}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -1670,9 +1680,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d82e54406ee05418b5578cb8be2302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lane: 2
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 102
+  gameController: {fileID: 116743750}
+  audioSource: {fileID: 540846135}
 --- !u!65 &1152232014
 BoxCollider:
   m_ObjectHideFlags: 0

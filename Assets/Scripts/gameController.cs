@@ -15,7 +15,7 @@ public class gameController : MonoBehaviour
     private float BPM, offset = 0;
     [SerializeField] private GameObject notePrefab;
     [SerializeField] private AudioSource audioSource;
-    private List<Note> Notes = new List<Note>();
+    public List<Note> Notes = new List<Note>();
     void Start()
     {
         ReadChartFile(path + "Aether Crest/data.txt");
