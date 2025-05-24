@@ -11,7 +11,7 @@ public class Note : MonoBehaviour
     void Start()
     {
         float lanePos = (lane - 1) - 1.5f;
-        float distance = (offset + time) * config.scrollSpeed;
+        float distance =  time * gameController.Instance.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
@@ -19,18 +19,17 @@ public class Note : MonoBehaviour
     {
         this.type = type;
         this.lane = lane;
-        this.time = beat * gameController.Instance.BPM / 60;
-        this.hold_duration = hold_duration * gameController.Instance.BPM / 60;
-        this.offset = offset;
-        this.tickTime = this.time + gameController.Instance.BPM / 240;
+        this.time = beat * 60 / gameController.Instance.BPM + offset * 0.001f; 
+        this.hold_duration = hold_duration * 60 / gameController.Instance.BPM;
+        this.tickTime = this.time;
         if (this.type == 1) ajdustLN();
     }
 
     private void ajdustLN()
     {
-        float tailPos = hold_duration * config.scrollSpeed;
+        float tailPos = hold_duration * gameController.Instance.scrollSpeed;
         float bodyPos = tailPos / 2;
-        float bodyScale = hold_duration * config.scrollSpeed;
+        float bodyScale = hold_duration * gameController.Instance.scrollSpeed;
         gameObject.transform.Find("tail").localPosition = new Vector3(0, 0, tailPos);
         gameObject.transform.Find("body").localPosition = new Vector3(0, 0, bodyPos);
 
@@ -41,10 +40,11 @@ public class Note : MonoBehaviour
     void onHoldTick()
     {
         float timeDiff =  currTime - tickTime;
-        float timeInterval = gameController.Instance.BPM / 240; // 1/4 time sig
+        float timeInterval = 60 / gameController.Instance.BPM;
         float tailReleaseTime = time + hold_duration;
         if (timeDiff >= timeInterval && currTime < tailReleaseTime)
         {
+            Debug.Log("time interval: " + timeInterval);
             tickTime = currTime;
             gameController.Instance.addCombo();
         }
@@ -65,7 +65,7 @@ public class Note : MonoBehaviour
         }
 
         float lanePos = lane - 2.5f;
-        float distance = (offset + timeDiff) * config.scrollSpeed;
+        float distance = (offset + timeDiff) * gameController.Instance.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
