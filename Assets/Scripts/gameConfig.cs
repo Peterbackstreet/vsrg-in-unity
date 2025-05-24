@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class gameConfig
 {
-    public float scrollSpeed = 10f;
     public float perfectWindow = 20 * 0.001f;
     public float greatWindow = 50 * 0.001f;
     public float goodWindow = 100 * 0.001f;

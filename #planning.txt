@@ -48,12 +48,12 @@
 8.long notes {
   -make some sort of prefab for long note
   -load long note and instantiate with the right length 
-  -make the judgement work <-- right here now
+  -make the judgement work 
     -tap head
     -hold body
       -hold tick
     -release tail
-}
+} <-- right here now
 
 <=== CHART EDITOR ===>
   -timeline/grid UI

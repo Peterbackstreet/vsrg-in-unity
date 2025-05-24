@@ -36,6 +36,7 @@ public class judge : MonoBehaviour
 
                     if (note.type == 0)
                     {
+                        Debug.Log(note.time);
                         gameController.Instance.Notes.Remove(note);
                         Destroy(note.gameObject);
                     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Numerics;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,22 +19,25 @@ public class gameController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
     private string path = "Assets/Chart files/";
     public float BPM, offset = 0;
+    public float scrollSpeed = 10f;
+    [SerializeField] private TMP_Text comboText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
     public List<Note> Notes = new List<Note>();
     void Start()
     {
         ReadChartFile(path + "Aether Crest/data.txt");
+        updateComboText();
     }
 
     void ReadChartFile(string file)
@@ -69,21 +73,23 @@ public class gameController : MonoBehaviour
 
     void addNote(int type, int lane, float time, float hold_duration, GameObject prefab)
     {
-            GameObject newNoteObj = Instantiate(prefab);
-            Note newNote = newNoteObj.GetComponent<Note>();
-            newNote.instantiateNote(type, lane, time, hold_duration, offset);
-            Notes.Add(newNote);
+        GameObject newNoteObj = Instantiate(prefab);
+        Note newNote = newNoteObj.GetComponent<Note>();
+        newNote.instantiateNote(type, lane, time, hold_duration, offset);
+        Notes.Add(newNote);
     }
 
     public void addCombo()
     {
         combo++;
         maxCombo = math.max(combo, maxCombo);
+        updateComboText();
     }
 
     public void resetCombo()
     {
         combo = 0;
+        updateComboText();
     }
 
     public void addScore(int score)
@@ -91,4 +97,8 @@ public class gameController : MonoBehaviour
         this.score += score;
     }
 
+    private void updateComboText()
+    {
+        comboText.text = combo.ToString();
+    }
 }
