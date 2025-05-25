@@ -19,10 +19,11 @@ public class chartManager : MonoBehaviour
     }
     public string title, artist, BPM, startOffset;
     public string audioPath, jacketPath, bgPath;
-    private string pathPrefix = "Assets/Chart files/";
+    private string pathPrefix = "Assets/Resources/Chart files/";
 
     void Start()
     {
-        audioPath = pathPrefix + "Aether Crest.mp3";
+        audioPath = "Chart files/" + "Aether Crest/Aether Crest";
+        audioController.Instance.loadAudio(audioPath);
     }
 }

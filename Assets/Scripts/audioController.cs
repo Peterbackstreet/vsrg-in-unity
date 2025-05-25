@@ -27,7 +27,7 @@ public class audioController : MonoBehaviour
     public float chartLength, chartTime;
     public AudioClip audioClip;
     private string chartLengthText;
-    bool pause = true;
+    public bool isPause = true;
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
@@ -54,11 +54,11 @@ public class audioController : MonoBehaviour
 
     public void Pause()
     {
-        pause = !pause;
+        isPause = !isPause;
 
         if (audioSource == null) return;
 
-        if (pause) audioSource.Pause();
+        if (isPause) audioSource.Pause();
         else audioSource.Play();
 
     }

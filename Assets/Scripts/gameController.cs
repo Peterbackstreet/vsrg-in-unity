@@ -28,7 +28,7 @@ public class gameController : MonoBehaviour
     }
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
-    private string songPath, path = "Assets/Resources/Chart files/";
+    private string pathPrefix = "Assets/Resources/", songPath = "Chart files/";
     public float BPM, offset = 0;
     [SerializeField] private TMP_Text comboText, scoreText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
@@ -36,7 +36,8 @@ public class gameController : MonoBehaviour
     public List<Note> Notes = new List<Note>();
     void Start()
     {
-        ReadChartFile(path + song + "/data.txt");
+        songPath += song + '/';
+        ReadChartFile(pathPrefix + songPath + "data.txt");
         updateComboText();
     }
 
@@ -49,11 +50,11 @@ public class gameController : MonoBehaviour
             if (line.StartsWith("#TITLE")) title = line.Substring(7);
             else if (line.StartsWith("#ARTIST")) artist = line.Substring(8);
             else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(5));
-            else if (line.StartsWith("#FILE")) songPath = line.Substring(6);
+            else if (line.StartsWith("#FILE")) songPath += line.Substring(6);
             else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(8));
             else if (line.StartsWith("#")) InsertNote(line.Substring(1));
         }
-        audioController.Instance.loadAudio("Chart files/" + song + '/' + songPath);
+        audioController.Instance.loadAudio(songPath);
     }
 
     void InsertNote(string line)
