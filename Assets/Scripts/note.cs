@@ -7,11 +7,11 @@ public class Note : MonoBehaviour
     public float time, hold_duration, offset; //hold_duration(beat as unit)
     public bool isJudged = false;
     private float tickTime, currTime;
-    private gameConfig config = new gameConfig();
+   
     void Start()
     {
         float lanePos = (lane - 1) - 1.5f;
-        float distance =  time * gameController.Instance.scrollSpeed;
+        float distance =  time * gameConfig.Instance.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
@@ -27,9 +27,9 @@ public class Note : MonoBehaviour
 
     private void ajdustLN()
     {
-        float tailPos = hold_duration * gameController.Instance.scrollSpeed;
+        float tailPos = hold_duration * gameConfig.Instance.scrollSpeed;
         float bodyPos = tailPos / 2;
-        float bodyScale = hold_duration * gameController.Instance.scrollSpeed;
+        float bodyScale = hold_duration * gameConfig.Instance.scrollSpeed;
         gameObject.transform.Find("tail").localPosition = new Vector3(0, 0, tailPos);
         gameObject.transform.Find("body").localPosition = new Vector3(0, 0, bodyPos);
 
@@ -57,7 +57,7 @@ public class Note : MonoBehaviour
 
         if (isJudged && type == 1) onHoldTick();
 
-        if (!isJudged && timeDiff < -config.missWindow)
+        if (!isJudged && timeDiff < -gameConfig.Instance.missWindow)
         {
             gameController.Instance.resetCombo();
             gameController.Instance.Notes.Remove(gameObject.GetComponent<Note>());
@@ -65,7 +65,7 @@ public class Note : MonoBehaviour
         }
 
         float lanePos = lane - 2.5f;
-        float distance = (offset + timeDiff) * gameController.Instance.scrollSpeed;
+        float distance = (offset + timeDiff) * gameConfig.Instance.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
