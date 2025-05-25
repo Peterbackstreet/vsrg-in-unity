@@ -8,7 +8,7 @@ public class judge : MonoBehaviour
     [SerializeField] int lane;
     [SerializeField] Material hit_material, default_material;
     [SerializeField] KeyCode key;
-    private gameConfig config = new gameConfig();
+    
     private float currTime;
     void Start()
     {
@@ -22,21 +22,20 @@ public class judge : MonoBehaviour
             if (!note.isJudged && note.lane == lane)
             {
                 float timeDiff = math.abs(note.time - currTime);
-                if (timeDiff <= config.missWindow)
+                if (timeDiff <= gameConfig.Instance.missWindow)
                 {
                     note.isJudged = true;
-                    if (timeDiff > config.goodWindow) gameController.Instance.resetCombo();
+                    if (timeDiff > gameConfig.Instance.goodWindow) gameController.Instance.resetCombo();
                     else
                     {
-                        if (timeDiff <= config.perfectWindow) gameController.Instance.addScore(config.perfectScore);
-                        else if (timeDiff <= config.greatWindow) gameController.Instance.addScore(config.greatScore);
-                        else gameController.Instance.addScore(config.goodScore);
+                        if (timeDiff <= gameConfig.Instance.perfectWindow) gameController.Instance.addScore(gameConfig.Instance.perfectScore);
+                        else if (timeDiff <= gameConfig.Instance.greatWindow) gameController.Instance.addScore(gameConfig.Instance.greatScore);
+                        else gameController.Instance.addScore(gameConfig.Instance.goodScore);
                         gameController.Instance.addCombo();
                     }
 
                     if (note.type == 0)
                     {
-                        Debug.Log(note.time);
                         gameController.Instance.Notes.Remove(note);
                         Destroy(note.gameObject);
                     }
@@ -55,10 +54,10 @@ public class judge : MonoBehaviour
                 float releaseTime = note.time + note.hold_duration;
                 float timeDiff = math.abs(releaseTime - currTime);
 
-                if (timeDiff <= config.goodWindow)
+                if (timeDiff <= gameConfig.Instance.goodWindow)
                 {
                     gameController.Instance.addCombo();
-                    gameController.Instance.addScore(config.perfectScore);
+                    gameController.Instance.addScore(gameConfig.Instance.perfectScore);
                 }
                 else gameController.Instance.resetCombo();
 

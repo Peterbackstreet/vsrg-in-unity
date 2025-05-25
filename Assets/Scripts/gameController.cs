@@ -30,8 +30,7 @@ public class gameController : MonoBehaviour
     private string title, artist;
     private string path = "Assets/Chart files/";
     public float BPM, offset = 0;
-    public float scrollSpeed = 10f;
-    [SerializeField] private TMP_Text comboText;
+    [SerializeField] private TMP_Text comboText, scoreText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
     public List<Note> Notes = new List<Note>();
     void Start()
@@ -95,6 +94,7 @@ public class gameController : MonoBehaviour
     public void addScore(int score)
     {
         this.score += score;
+        scoreText.text = this.score.ToString();
     }
 
     private void updateComboText()
