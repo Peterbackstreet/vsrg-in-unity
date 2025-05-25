@@ -1,7 +1,7 @@
 #TITLE Aether Crest: Celestial 
 #ARTIST void (Mournfinale) × 水野健治
 #BPM 180
-#FILE Aether Crest.mp3
+#FILE Aether Crest
 #OFFSET 3000
 
 --META DATA--

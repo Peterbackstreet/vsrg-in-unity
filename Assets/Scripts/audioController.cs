@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using TMPro;
 using Unity.Collections;
 using UnityEditor.Timeline;
@@ -12,11 +13,11 @@ public class audioController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
     [SerializeField] public AudioSource audioSource;
@@ -24,20 +25,18 @@ public class audioController : MonoBehaviour
     [SerializeField] private Slider timeSlider;
 
     public float chartLength, chartTime;
+    public AudioClip audioClip;
     private string chartLengthText;
-    
     bool pause = true;
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
-        if (audioSource.clip != null) chartLength = audioSource.clip.length;
-        chartLengthText = FormatTime(chartLength);
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) Pause();
-        displayChartTime();
+        if (audioSource.clip) displayChartTime();
     }
 
     void displayChartTime()
@@ -58,8 +57,8 @@ public class audioController : MonoBehaviour
         pause = !pause;
 
         if (audioSource == null) return;
-            
-        if(pause) audioSource.Pause();
+
+        if (pause) audioSource.Pause();
         else audioSource.Play();
 
     }
@@ -72,7 +71,15 @@ public class audioController : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(timeInSeconds / 60);
         int seconds = Mathf.FloorToInt(timeInSeconds % 60);
-        int milisec = Mathf.FloorToInt(timeInSeconds*100 %100);
+        int milisec = Mathf.FloorToInt(timeInSeconds * 100 % 100);
         return string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milisec);
+    }
+
+    public void loadAudio(string audio)
+    {
+        audioClip = Resources.Load<AudioClip>(audio);
+        audioSource.clip = audioClip;
+        if (audioSource.clip != null) chartLength = audioSource.clip.length;
+        chartLengthText = FormatTime(chartLength);
     }
 }

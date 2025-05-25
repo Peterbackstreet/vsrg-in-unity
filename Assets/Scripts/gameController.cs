@@ -28,14 +28,15 @@ public class gameController : MonoBehaviour
     }
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
-    private string path = "Assets/Chart files/";
+    private string songPath, path = "Assets/Resources/Chart files/";
     public float BPM, offset = 0;
     [SerializeField] private TMP_Text comboText, scoreText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
+    [SerializeField] private string song;
     public List<Note> Notes = new List<Note>();
     void Start()
     {
-        ReadChartFile(path + "Aether Crest/data.txt");
+        ReadChartFile(path + song + "/data.txt");
         updateComboText();
     }
 
@@ -45,13 +46,14 @@ public class gameController : MonoBehaviour
 
         foreach (string line in lines)
         {
-            if (line.StartsWith("#TITLE")) title = line.Substring(6);
-            else if (line.StartsWith("#ARTIST")) artist = line.Substring(7);
-            else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(4));
-            else if (line.StartsWith("#FILE")) path = line.Substring(5);
-            else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(7));
+            if (line.StartsWith("#TITLE")) title = line.Substring(7);
+            else if (line.StartsWith("#ARTIST")) artist = line.Substring(8);
+            else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(5));
+            else if (line.StartsWith("#FILE")) songPath = line.Substring(6);
+            else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(8));
             else if (line.StartsWith("#")) InsertNote(line.Substring(1));
         }
+        audioController.Instance.loadAudio("Chart files/" + song + '/' + songPath);
     }
 
     void InsertNote(string line)
