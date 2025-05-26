@@ -82,6 +82,7 @@
 
 optional!!
   -softlan!!!!!!!
+  -add object culling/pooling
 
 
 --more to come, maybe--

@@ -32,7 +32,9 @@ public class gameController : MonoBehaviour
     public float BPM, offset = 0;
     [SerializeField] private TMP_Text comboText, scoreText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
+    [SerializeField] private Transform noteParent;
     [SerializeField] private string song;
+    [SerializeField] private beatLineGenerator beatLineGenerator;
     public List<Note> Notes = new List<Note>();
     void Start()
     {
@@ -55,6 +57,7 @@ public class gameController : MonoBehaviour
             else if (line.StartsWith("#")) InsertNote(line.Substring(1));
         }
         audioController.Instance.loadAudio(songPath);
+        beatLineGenerator.generatebeatLines(BPM, offset, audioController.Instance.chartLength);
     }
 
     void InsertNote(string line)
@@ -75,7 +78,7 @@ public class gameController : MonoBehaviour
 
     void addNote(int type, int lane, float time, float hold_duration, GameObject prefab)
     {
-        GameObject newNoteObj = Instantiate(prefab);
+        GameObject newNoteObj = Instantiate(prefab, noteParent);
         Note newNote = newNoteObj.GetComponent<Note>();
         newNote.instantiateNote(type, lane, time, hold_duration, offset);
         Notes.Add(newNote);
