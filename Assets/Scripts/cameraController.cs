@@ -22,7 +22,6 @@ public class cameraController : MonoBehaviour
     [SerializeField] private Quaternion topRotation;
 
     [SerializeField] private float moveSpeed, rotationSpeed;
-    private bool isAtDefaultPos = true;
     void Update()
     {
         if (!audioController.Instance.isPause) moveCamDefault();

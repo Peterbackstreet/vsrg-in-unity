@@ -22,7 +22,6 @@ public class audioController : MonoBehaviour
     }
     [SerializeField] public AudioSource audioSource;
     [SerializeField] private TMP_Text chartTimeText;
-    [SerializeField] private Slider timeSlider;
 
     public float chartLength, chartTime;
     public AudioClip audioClip;
@@ -31,6 +30,9 @@ public class audioController : MonoBehaviour
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+        audioSource.Pause();
+        audioSource.time = 0;
     }
 
     public void Update()
@@ -44,7 +46,6 @@ public class audioController : MonoBehaviour
         float curr_audioTime = audioSource.time;
         chartTime = curr_audioTime;
         chartTimeText.text = FormatTime(chartTime) + " / " + chartLengthText;
-        timeSlider.value = chartTime / chartLength;
 
     }
     public void Play()
@@ -59,7 +60,7 @@ public class audioController : MonoBehaviour
         if (audioSource == null) return;
 
         if (isPause) audioSource.Pause();
-        else audioSource.Play();
+        else audioSource.UnPause();
 
     }
 
