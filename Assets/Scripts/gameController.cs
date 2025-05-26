@@ -28,14 +28,18 @@ public class gameController : MonoBehaviour
     }
     public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
-    private string path = "Assets/Chart files/";
+    private string pathPrefix = "Assets/Resources/", songPath = "Chart files/";
     public float BPM, offset = 0;
     [SerializeField] private TMP_Text comboText, scoreText;
     [SerializeField] private GameObject notePrefab, longNotePrefab;
+    [SerializeField] private Transform noteParent;
+    [SerializeField] private string song;
+    [SerializeField] private beatLineGenerator beatLineGenerator;
     public List<Note> Notes = new List<Note>();
     void Start()
     {
-        ReadChartFile(path + "Aether Crest/data.txt");
+        songPath += song + '/';
+        ReadChartFile(pathPrefix + songPath + "data.txt");
         updateComboText();
     }
 
@@ -45,13 +49,15 @@ public class gameController : MonoBehaviour
 
         foreach (string line in lines)
         {
-            if (line.StartsWith("#TITLE")) title = line.Substring(6);
-            else if (line.StartsWith("#ARTIST")) artist = line.Substring(7);
-            else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(4));
-            else if (line.StartsWith("#FILE")) path = line.Substring(5);
-            else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(7));
+            if (line.StartsWith("#TITLE")) title = line.Substring(7);
+            else if (line.StartsWith("#ARTIST")) artist = line.Substring(8);
+            else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(5));
+            else if (line.StartsWith("#FILE")) songPath += line.Substring(6);
+            else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(8));
             else if (line.StartsWith("#")) InsertNote(line.Substring(1));
         }
+        audioController.Instance.loadAudio(songPath);
+        beatLineGenerator.generatebeatLines(BPM, offset, audioController.Instance.chartLength);
     }
 
     void InsertNote(string line)
@@ -72,7 +78,7 @@ public class gameController : MonoBehaviour
 
     void addNote(int type, int lane, float time, float hold_duration, GameObject prefab)
     {
-        GameObject newNoteObj = Instantiate(prefab);
+        GameObject newNoteObj = Instantiate(prefab, noteParent);
         Note newNote = newNoteObj.GetComponent<Note>();
         newNote.instantiateNote(type, lane, time, hold_duration, offset);
         Notes.Add(newNote);

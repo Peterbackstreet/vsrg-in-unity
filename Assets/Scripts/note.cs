@@ -7,19 +7,13 @@ public class Note : MonoBehaviour
     public float time, hold_duration, offset; //hold_duration(beat as unit)
     public bool isJudged = false;
     private float tickTime, currTime;
-   
-    void Start()
-    {
-        float lanePos = (lane - 1) - 1.5f;
-        float distance =  time * gameConfig.Instance.scrollSpeed;
-        transform.position = new Vector3(lanePos, 0, distance);
-    }
 
     public void instantiateNote(int type, int lane, float beat, float hold_duration, float offset)
     {
         this.type = type;
         this.lane = lane;
-        this.time = beat * 60 / gameController.Instance.BPM + offset * 0.001f; 
+        this.offset = offset * 0.001f;
+        this.time = beat * 60 / gameController.Instance.BPM + this.offset;
         this.hold_duration = hold_duration * 60 / gameController.Instance.BPM;
         this.tickTime = this.time;
         if (this.type == 1) ajdustLN();
@@ -65,7 +59,7 @@ public class Note : MonoBehaviour
         }
 
         float lanePos = lane - 2.5f;
-        float distance = (offset + timeDiff) * gameConfig.Instance.scrollSpeed;
+        float distance = timeDiff * gameConfig.Instance.scrollSpeed;
         transform.position = new Vector3(lanePos, 0, distance);
     }
 
