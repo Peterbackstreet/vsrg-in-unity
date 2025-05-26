@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class beatLineGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject beatLinePrefab; 
+    [SerializeField] private GameObject beatLinePrefab;
+    [SerializeField] private Transform beatLineParent;
     List<GameObject> beatLines;
     public void generatebeatLines(float BPM, float startOffset, float chartLength)
     {
@@ -12,8 +13,8 @@ public class beatLineGenerator : MonoBehaviour
         float beatCnt = (Length / 60) * BPM;
         for (float beat = 0; beat < beatCnt; beat++)
         {
-            GameObject newBeatLine = Instantiate(beatLinePrefab);
-            newBeatLine.GetComponent<BeatLine>().initBeatLine(beat, start_offset);
+            GameObject newBeatLine = Instantiate(beatLinePrefab, beatLineParent);
+            newBeatLine.GetComponent<BeatLine>().initBeatLine(beat);
         }
     }
 

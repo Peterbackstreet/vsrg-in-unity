@@ -28,9 +28,22 @@ public class judge : MonoBehaviour
                     if (timeDiff > gameConfig.Instance.goodWindow) gameController.Instance.resetCombo();
                     else
                     {
-                        if (timeDiff <= gameConfig.Instance.perfectWindow) gameController.Instance.addScore(gameConfig.Instance.perfectScore);
-                        else if (timeDiff <= gameConfig.Instance.greatWindow) gameController.Instance.addScore(gameConfig.Instance.greatScore);
-                        else gameController.Instance.addScore(gameConfig.Instance.goodScore);
+                        if (timeDiff <= gameConfig.Instance.perfectWindow)
+                        {
+                            Debug.Log("PERFECT");
+                            gameController.Instance.addScore(gameConfig.Instance.perfectScore);
+                        }
+                        else if (timeDiff <= gameConfig.Instance.greatWindow)
+                        {
+                            Debug.Log("GREAT");
+                            gameController.Instance.addScore(gameConfig.Instance.greatScore);
+                        }
+                        else
+                        {
+                            Debug.Log("GOOD");
+                            gameController.Instance.addScore(gameConfig.Instance.goodScore);
+                        }
+                        Debug.Log(note.time - currTime);
                         gameController.Instance.addCombo();
                     }
 
