@@ -170,6 +170,9 @@ MonoBehaviour:
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 107
+  comboHandler: {fileID: 1862043692}
+  scoreHandler: {fileID: 344126581}
+  noteGenerator: {fileID: 1137618707}
 --- !u!65 &75516223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -275,19 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0000610888447af4c991feb95999e6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  combo: 0
-  maxCombo: 0
   BPM: 0
   offset: 0
-  comboText: {fileID: 1862043690}
-  scoreText: {fileID: 344126579}
-  notePrefab: {fileID: 7665240658762039421, guid: 7cc0da20d756f4849ad8b2b0fc10774e, type: 3}
-  longNotePrefab: {fileID: 3706927787385416397, guid: 229c50d6ee410694382e1980a896fe99, type: 3}
-  noteParent: {fileID: 1814770358}
   song: Aether Crest
+  noteParent: {fileID: 1814770358}
+  noteGenerator: {fileID: 1137618707}
   beatLineGenerator: {fileID: 116743753}
-  Notes: []
 --- !u!4 &116743751
 Transform:
   m_ObjectHideFlags: 0
@@ -780,6 +776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 344126578}
+  - component: {fileID: 344126581}
   - component: {fileID: 344126580}
   - component: {fileID: 344126579}
   m_Layer: 5
@@ -907,6 +904,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344126577}
   m_CullTransparentMesh: 1
+--- !u!114 &344126581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344126577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dca5063e510c5c49a7909c6b673138d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 344126579}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1163,9 @@ MonoBehaviour:
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 100
+  comboHandler: {fileID: 1862043692}
+  scoreHandler: {fileID: 344126581}
+  noteGenerator: {fileID: 1137618707}
 --- !u!1 &540846133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,6 +1365,9 @@ MonoBehaviour:
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 106
+  comboHandler: {fileID: 1862043692}
+  scoreHandler: {fileID: 344126581}
+  noteGenerator: {fileID: 1137618707}
 --- !u!65 &763021819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1812,6 +1828,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1137618706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137618708}
+  - component: {fileID: 1137618707}
+  m_Layer: 0
+  m_Name: noteGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1137618707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137618706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cfbe8ab188f574f9a469514f924768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes: []
+  comboHandler: {fileID: 1862043692}
+  notePrefab: {fileID: 7665240658762039421, guid: 7cc0da20d756f4849ad8b2b0fc10774e, type: 3}
+  longNotePrefab: {fileID: 3706927787385416397, guid: 229c50d6ee410694382e1980a896fe99, type: 3}
+  noteParent: {fileID: 1814770358}
+  gameController: {fileID: 116743750}
+  chartManager: {fileID: 0}
+--- !u!4 &1137618708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137618706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.6463656, y: -9.214579, z: 10.628094}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1152232011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1930,9 @@ MonoBehaviour:
   hit_material: {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   default_material: {fileID: 2100000, guid: cc9f5f33e5603164e99b4327247c5f7f, type: 2}
   key: 102
+  comboHandler: {fileID: 1862043692}
+  scoreHandler: {fileID: 344126581}
+  noteGenerator: {fileID: 1137618707}
 --- !u!65 &1152232014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2043,6 +2113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1862043689}
+  - component: {fileID: 1862043692}
   - component: {fileID: 1862043691}
   - component: {fileID: 1862043690}
   m_Layer: 5
@@ -2170,6 +2241,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862043688}
   m_CullTransparentMesh: 1
+--- !u!114 &1862043692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862043688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d55d6b7b6ec054298856a9cc8ea084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboText: {fileID: 1862043690}
 --- !u!1 &1876893411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,12 +2579,13 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
-  - {fileID: 971836080}
   - {fileID: 410087041}
   - {fileID: 333702133}
   - {fileID: 832575519}
-  - {fileID: 116743751}
+  - {fileID: 971836080}
   - {fileID: 540846136}
+  - {fileID: 116743751}
+  - {fileID: 1137618708}
   - {fileID: 1814770358}
   - {fileID: 1742810777}
   - {fileID: 1174150391}

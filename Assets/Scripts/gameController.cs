@@ -13,34 +13,17 @@ using UnityEngine.Tilemaps;
 
 public class gameController : MonoBehaviour
 {
-    public static gameController Instance { get; private set; }
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    public int score = 0, combo = 0, maxCombo = 0;
     private string title, artist;
-    private string pathPrefix = "Assets/Resources/", songPath = "Chart files/";
     public float BPM, offset = 0;
-    [SerializeField] private TMP_Text comboText, scoreText;
-    [SerializeField] private GameObject notePrefab, longNotePrefab;
-    [SerializeField] private Transform noteParent;
     [SerializeField] private string song;
+    private string pathPrefix = "Assets/Resources/", songPath = "Chart files/";
+    [SerializeField] private Transform noteParent;
+    [SerializeField] private noteGenerator noteGenerator;
     [SerializeField] private beatLineGenerator beatLineGenerator;
-    public List<Note> Notes = new List<Note>();
     void Start()
     {
         songPath += song + '/';
         ReadChartFile(pathPrefix + songPath + "data.txt");
-        updateComboText();
     }
 
     void ReadChartFile(string file)
@@ -54,13 +37,13 @@ public class gameController : MonoBehaviour
             else if (line.StartsWith("#BPM")) BPM = float.Parse(line.Substring(5));
             else if (line.StartsWith("#FILE")) songPath += line.Substring(6);
             else if (line.StartsWith("#OFFSET")) offset = float.Parse(line.Substring(8));
-            else if (line.StartsWith("#")) InsertNote(line.Substring(1));
+            else if (line.StartsWith("#")) readNote(line.Substring(1));
         }
         audioController.Instance.loadAudio(songPath);
         beatLineGenerator.generatebeatLines(BPM, offset, audioController.Instance.chartLength);
     }
 
-    void InsertNote(string line)
+    void readNote(string line)
     {
         string[] split = line.Split(':');
         int type, lane;
@@ -71,40 +54,7 @@ public class gameController : MonoBehaviour
         beat = float.Parse(split[2]);
         hold_duration = float.Parse(split[3]);
 
-        if (type == 0) addNote(type, lane, beat, hold_duration, notePrefab);
-        else addNote(type, lane, beat, hold_duration, longNotePrefab);
-
+        noteGenerator.generateNote(type, lane, beat, hold_duration);
     }
 
-    void addNote(int type, int lane, float time, float hold_duration, GameObject prefab)
-    {
-        GameObject newNoteObj = Instantiate(prefab, noteParent);
-        Note newNote = newNoteObj.GetComponent<Note>();
-        newNote.instantiateNote(type, lane, time, hold_duration, offset);
-        Notes.Add(newNote);
-    }
-
-    public void addCombo()
-    {
-        combo++;
-        maxCombo = math.max(combo, maxCombo);
-        updateComboText();
-    }
-
-    public void resetCombo()
-    {
-        combo = 0;
-        updateComboText();
-    }
-
-    public void addScore(int score)
-    {
-        this.score += score;
-        scoreText.text = this.score.ToString();
-    }
-
-    private void updateComboText()
-    {
-        comboText.text = combo.ToString();
-    }
 }

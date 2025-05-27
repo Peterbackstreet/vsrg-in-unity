@@ -268,7 +268,7 @@ MonoBehaviour:
   time: 0
   hold_duration: 0
   offset: 0
-  audioSource: {fileID: 0}
+  isJudged: 0
 --- !u!1 &3912167262366564852
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1b92a7f9a3b1a94999a336fc76748f6, type: 2}
+  - {fileID: 2100000, guid: 63742d1f3c826754489bba0a3b272d4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

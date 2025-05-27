@@ -4,19 +4,31 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     public int type, lane;
-    public float time, hold_duration, offset; //hold_duration(beat as unit)
+    public float time, hold_duration, BPM, start_offset; //hold_duration(beat)
     public bool isJudged = false;
     private float tickTime, currTime;
+    private comboHandler comboHandler;
+    private noteGenerator noteGenerator;
+
+    public void getInstanceValue(float BPM, float start_offset, comboHandler comboHandler, noteGenerator noteGenerator)
+    {
+        this.BPM = BPM;
+        this.start_offset = start_offset;
+
+        this.comboHandler = comboHandler;
+        this.noteGenerator = noteGenerator;
+    }
 
     public void instantiateNote(int type, int lane, float beat, float hold_duration, float offset)
     {
         this.type = type;
         this.lane = lane;
-        this.offset = offset * 0.001f;
-        this.time = beat * 60 / gameController.Instance.BPM + this.offset;
-        this.hold_duration = hold_duration * 60 / gameController.Instance.BPM;
+        this.start_offset = offset * 0.001f;
+        this.time = beat * 60 / BPM + this.start_offset;
+        this.hold_duration = hold_duration * 60 / BPM;
         this.tickTime = this.time;
         if (this.type == 1) ajdustLN();
+
     }
 
     private void ajdustLN()
@@ -34,13 +46,13 @@ public class Note : MonoBehaviour
     void onHoldTick()
     {
         float timeDiff =  currTime - tickTime;
-        float timeInterval = 60 / gameController.Instance.BPM;
+        float timeInterval = 60 / BPM;
         float tailReleaseTime = time + hold_duration;
         if (timeDiff >= timeInterval && currTime < tailReleaseTime)
         {
             Debug.Log("time interval: " + timeInterval);
             tickTime = currTime;
-            gameController.Instance.addCombo();
+            comboHandler.addCombo(); 
         }
     }
 
@@ -53,8 +65,8 @@ public class Note : MonoBehaviour
 
         if (!isJudged && timeDiff < -gameConfig.Instance.missWindow)
         {
-            gameController.Instance.resetCombo();
-            gameController.Instance.Notes.Remove(gameObject.GetComponent<Note>());
+            comboHandler.resetCombo();
+            noteGenerator.notes.Remove(gameObject.GetComponent<Note>());
             Destroy(gameObject);
         }
 

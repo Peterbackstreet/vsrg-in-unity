@@ -53,7 +53,7 @@
     -hold body
       -hold tick
     -release tail
-} <-- right here now
+} 
 
 <=== CHART EDITOR ===>
   -timeline/grid UI
@@ -61,7 +61,7 @@
   -play pause music
     -also get the time ofc
   -slider for moving through part of song
-    -also move the UI
+    -also move the UI                           <-- right here now
   -note placement -> List for holding notes
     -mouse click on position translate to time and lane
     -snab to grid

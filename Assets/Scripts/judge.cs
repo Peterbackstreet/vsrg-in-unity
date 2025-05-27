@@ -8,7 +8,9 @@ public class judge : MonoBehaviour
     [SerializeField] int lane;
     [SerializeField] Material hit_material, default_material;
     [SerializeField] KeyCode key;
-    
+    [SerializeField] private comboHandler comboHandler;
+    [SerializeField] private scoreHandler scoreHandler;
+    [SerializeField] private noteGenerator noteGenerator;
     private float currTime;
     void Start()
     {
@@ -17,7 +19,7 @@ public class judge : MonoBehaviour
 
     void checkForNote()
     {
-        foreach (Note note in gameController.Instance.Notes)
+        foreach (Note note in noteGenerator.notes)
         {
             if (!note.isJudged && note.lane == lane)
             {
@@ -25,31 +27,31 @@ public class judge : MonoBehaviour
                 if (timeDiff <= gameConfig.Instance.missWindow)
                 {
                     note.isJudged = true;
-                    if (timeDiff > gameConfig.Instance.goodWindow) gameController.Instance.resetCombo();
+                    if (timeDiff > gameConfig.Instance.goodWindow) comboHandler.resetCombo();
                     else
                     {
                         if (timeDiff <= gameConfig.Instance.perfectWindow)
                         {
-                            Debug.Log("PERFECT");
-                            gameController.Instance.addScore(gameConfig.Instance.perfectScore);
+                            // Debug.Log("PERFECT");
+                            scoreHandler.addScore(gameConfig.Instance.perfectScore);
                         }
                         else if (timeDiff <= gameConfig.Instance.greatWindow)
                         {
-                            Debug.Log("GREAT");
-                            gameController.Instance.addScore(gameConfig.Instance.greatScore);
+                            // Debug.Log("GREAT");
+                            scoreHandler.addScore(gameConfig.Instance.greatScore);
                         }
                         else
                         {
-                            Debug.Log("GOOD");
-                            gameController.Instance.addScore(gameConfig.Instance.goodScore);
+                            // Debug.Log("GOOD");
+                            scoreHandler.addScore(gameConfig.Instance.goodScore);
                         }
-                        Debug.Log(note.time - currTime);
-                        gameController.Instance.addCombo();
+                        // Debug.Log(note.time - currTime);
+                        comboHandler.addCombo();
                     }
 
                     if (note.type == 0)
                     {
-                        gameController.Instance.Notes.Remove(note);
+                        noteGenerator.notes.Remove(note);
                         Destroy(note.gameObject);
                     }
                     return;
@@ -60,7 +62,7 @@ public class judge : MonoBehaviour
 
     void checkRelease()
     {
-        foreach (Note note in gameController.Instance.Notes)
+        foreach (Note note in noteGenerator.notes)
         {
             if (note.lane == lane && note.isJudged && note.lane == lane)
             {
@@ -69,12 +71,12 @@ public class judge : MonoBehaviour
 
                 if (timeDiff <= gameConfig.Instance.goodWindow)
                 {
-                    gameController.Instance.addCombo();
-                    gameController.Instance.addScore(gameConfig.Instance.perfectScore);
+                    comboHandler.addCombo();
+                    scoreHandler.addScore(gameConfig.Instance.perfectScore);
                 }
-                else gameController.Instance.resetCombo();
+                else comboHandler.resetCombo();
 
-                gameController.Instance.Notes.Remove(note);
+                noteGenerator.notes.Remove(note);
                 Destroy(note.gameObject);
                 return;
             }
