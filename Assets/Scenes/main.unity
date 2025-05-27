@@ -916,7 +916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dca5063e510c5c49a7909c6b673138d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 344126579}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,7 +2252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d55d6b7b6ec054298856a9cc8ea084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboText: {fileID: 1862043690}
 --- !u!1 &1876893411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,10 +2581,10 @@ SceneRoots:
   - {fileID: 333702133}
   - {fileID: 832575519}
   - {fileID: 971836080}
-  - {fileID: 540846136}
-  - {fileID: 116743751}
   - {fileID: 1137618708}
-  - {fileID: 1814770358}
-  - {fileID: 1742810777}
   - {fileID: 1174150391}
   - {fileID: 810262342}
+  - {fileID: 1814770358}
+  - {fileID: 1742810777}
+  - {fileID: 540846136}
+  - {fileID: 116743751}

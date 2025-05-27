@@ -4,9 +4,10 @@ using UnityEngine;
 public class scoreHandler : MonoBehaviour
 {
     private int score;
-    [SerializeField] private TMP_Text scoreText;
+    private TMP_Text scoreText;
     void Start()
     {
+        scoreText = gameObject.GetComponent<TMP_Text>();
         scoreText.text = this.score.ToString();
     }
 

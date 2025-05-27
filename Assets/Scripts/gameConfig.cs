@@ -16,6 +16,7 @@ public class gameConfig : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public bool isEditorMode = false;
     public float scrollSpeed = 10f;
     public float perfectWindow = 20 * 0.001f;
     public float greatWindow = 50 * 0.001f;

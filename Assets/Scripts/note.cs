@@ -63,7 +63,7 @@ public class Note : MonoBehaviour
 
         if (isJudged && type == 1) onHoldTick();
 
-        if (!isJudged && timeDiff < -gameConfig.Instance.missWindow)
+        if (!gameConfig.Instance.isEditorMode && timeDiff < -gameConfig.Instance.missWindow && !isJudged)
         {
             comboHandler.resetCombo();
             noteGenerator.notes.Remove(gameObject.GetComponent<Note>());

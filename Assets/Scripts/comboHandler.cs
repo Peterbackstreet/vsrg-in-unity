@@ -5,9 +5,10 @@ using UnityEngine;
 public class comboHandler : MonoBehaviour
 {
     private int combo = 0, maxCombo = 0;
-    [SerializeField] private TMP_Text comboText;
+    private TMP_Text comboText;
     void Start()
     {
+        comboText = gameObject.GetComponent<TMP_Text>();
         updateComboText();
     }
 
