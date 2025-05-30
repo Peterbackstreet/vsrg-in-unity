@@ -4,7 +4,7 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     public int type, lane;
-    public float time, hold_duration, BPM, start_offset; //hold_duration(beat)
+    public float time, hold_duration, beat, BPM, start_offset; //hold_duration(beat)
     public bool isJudged = false;
     private float tickTime, currTime;
     private comboHandler comboHandler;
@@ -24,6 +24,7 @@ public class Note : MonoBehaviour
         this.type = type;
         this.lane = lane;
         this.start_offset = offset * 0.001f;
+        this.beat = beat;
         this.time = beat * 60 / BPM + this.start_offset;
         this.hold_duration = hold_duration * 60 / BPM;
         this.tickTime = this.time;
